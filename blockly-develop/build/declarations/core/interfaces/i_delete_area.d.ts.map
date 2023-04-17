@@ -1,0 +1,1 @@
+{"version":3,"file":"i_delete_area.d.ts","sourceRoot":"","sources":["../../../../core/interfaces/i_delete_area.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAKH,OAAO,KAAK,EAAC,WAAW,EAAC,MAAM,oBAAoB,CAAC;AACpD,OAAO,KAAK,EAAC,UAAU,EAAC,MAAM,kBAAkB,CAAC;AAGjD;;;GAGG;AACH,MAAM,WAAW,WAAY,SAAQ,WAAW;IAC9C;;;;;;;;;;OAUG;IACH,WAAW,CAAC,OAAO,EAAE,UAAU,EAAE,YAAY,EAAE,OAAO,GAAG,OAAO,CAAC;CAClE"}

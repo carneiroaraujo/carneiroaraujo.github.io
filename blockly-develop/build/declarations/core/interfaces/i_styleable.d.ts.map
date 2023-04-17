@@ -1,0 +1,1 @@
+{"version":3,"file":"i_styleable.d.ts","sourceRoot":"","sources":["../../../../core/interfaces/i_styleable.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAMH;;GAEG;AACH,MAAM,WAAW,UAAU;IACzB;;;;OAIG;IACH,QAAQ,CAAC,KAAK,EAAE,MAAM,GAAG,IAAI,CAAC;IAE9B;;;;OAIG;IACH,WAAW,CAAC,KAAK,EAAE,MAAM,GAAG,IAAI,CAAC;CAClC"}

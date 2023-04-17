@@ -1,0 +1,1 @@
+{"version":3,"file":"size.d.ts","sourceRoot":"","sources":["../../../../core/utils/size.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAaH;;GAEG;AACH,qBAAa,IAAI;IAKI,KAAK,EAAE,MAAM;IAAS,MAAM,EAAE,MAAM;IAJvD;;;OAGG;gBACgB,KAAK,EAAE,MAAM,EAAS,MAAM,EAAE,MAAM;IAEvD;;;;;;;OAOG;IACH,MAAM,CAAC,MAAM,CAAC,CAAC,EAAE,IAAI,GAAC,IAAI,EAAE,CAAC,EAAE,IAAI,GAAC,IAAI,GAAG,OAAO;CASnD"}

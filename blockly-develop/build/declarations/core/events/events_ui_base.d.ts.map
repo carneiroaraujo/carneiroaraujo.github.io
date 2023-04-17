@@ -1,0 +1,1 @@
+{"version":3,"file":"events_ui_base.d.ts","sourceRoot":"","sources":["../../../../core/events/events_ui_base.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAWH,OAAO,EAAC,QAAQ,IAAI,aAAa,EAAC,MAAM,sBAAsB,CAAC;AAG/D;;;;;;GAMG;AACH,qBAAa,MAAO,SAAQ,aAAa;IAC9B,OAAO,UAAQ;IACf,WAAW,EAAE,MAAM,CAAC;IAGpB,UAAU,UAAS;IAE5B,8CAA8C;IACrC,SAAS,UAAQ;IAE1B;;;OAGG;gBACS,eAAe,CAAC,EAAE,MAAM;CASrC"}

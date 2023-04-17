@@ -1,0 +1,1 @@
+{"version":3,"file":"i_bounded_element.d.ts","sourceRoot":"","sources":["../../../../core/interfaces/i_bounded_element.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AAGH,OAAO,KAAK,EAAC,IAAI,EAAC,MAAM,kBAAkB,CAAC;AAG3C;;GAEG;AACH,MAAM,WAAW,eAAe;IAC9B;;;;;OAKG;IACH,oBAAoB,IAAI,IAAI,CAAC;IAE7B;;;;;OAKG;IACH,MAAM,CAAC,EAAE,EAAE,MAAM,EAAE,EAAE,EAAE,MAAM,GAAG,IAAI,CAAC;CACtC"}
