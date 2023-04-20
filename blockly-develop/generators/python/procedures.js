@@ -65,7 +65,7 @@ Python['procedures_defreturn'] = function(block) {
     xfix2 = xfix1;
   }
   if (returnValue) {
-    returnValue = Python.INDENT + 'retorne ' + returnValue + '\n';
+    returnValue = Python.INDENT + 'return ' + returnValue + '\n';
   } else if (!branch) {
     branch = Python.PASS;
   }
@@ -93,7 +93,7 @@ Python['procedures_callreturn'] = function(block) {
   const args = [];
   const variables = block.getVars();
   for (let i = 0; i < variables.length; i++) {
-    args[i] = Python.valueToCode(block, 'ARG' + i, Python.ORDER_NONE) || 'nulo';
+    args[i] = Python.valueToCode(block, 'ARG' + i, Python.ORDER_NONE) || 'None';
   }
   const code = funcName + '(' + args.join(', ') + ')';
   return [code, Python.ORDER_FUNCTION_CALL];
@@ -110,7 +110,7 @@ Python['procedures_callnoreturn'] = function(block) {
 Python['procedures_ifreturn'] = function(block) {
   // Conditionally return value from a procedure.
   const condition =
-      Python.valueToCode(block, 'CONDITION', Python.ORDER_NONE) || 'falso';
+      Python.valueToCode(block, 'CONDITION', Python.ORDER_NONE) || 'False';
   let code = 'if ' + condition + ':\n';
   if (Python.STATEMENT_SUFFIX) {
     // Inject any statement suffix here since the regular one at the end
@@ -120,11 +120,10 @@ Python['procedures_ifreturn'] = function(block) {
   }
   if (block.hasReturnValue_) {
     const value =
-        Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || 'nulo';
-    code += Python.INDENT + 'retorne ' + value + '\n';
+        Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || 'None';
+    code += Python.INDENT + 'return ' + value + '\n';
   } else {
-    code += Python.INDENT + 'retorne\n';
+    code += Python.INDENT + 'return\n';
   }
   return code;
 };
-// Ok

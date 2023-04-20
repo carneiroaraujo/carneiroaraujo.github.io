@@ -23,10 +23,10 @@ Python['math_number'] = function(block) {
   let code = Number(block.getFieldValue('NUM'));
   let order;
   if (code === Infinity) {
-    code = 'real("inf")';
+    code = 'float("inf")';
     order = Python.ORDER_FUNCTION_CALL;
   } else if (code === -Infinity) {
-    code = '-real("inf")';
+    code = '-float("inf")';
     order = Python.ORDER_UNARY_SIGN;
   } else {
     order = code < 0 ? Python.ORDER_UNARY_SIGN : Python.ORDER_ATOMIC;
@@ -142,11 +142,11 @@ Python['math_constant'] = function(block) {
     'GOLDEN_RATIO': ['(1 + math.sqrt(5)) / 2', Python.ORDER_MULTIPLICATIVE],
     'SQRT2': ['math.sqrt(2)', Python.ORDER_MEMBER],
     'SQRT1_2': ['math.sqrt(1.0 / 2)', Python.ORDER_MEMBER],
-    'INFINITY': ['real(\'inf\')', Python.ORDER_ATOMIC],
+    'INFINITY': ['float(\'inf\')', Python.ORDER_ATOMIC],
   };
   const constant = block.getFieldValue('CONSTANT');
   if (constant !== 'INFINITY') {
-    Python.definitions_['import_math'] = 'importe math';
+    Python.definitions_['import_math'] = 'import math';
   }
   return CONSTANTS[constant];
 };
@@ -172,9 +172,9 @@ Python['math_number_property'] = function(block) {
   let code;
   if (dropdownProperty === 'PRIME') {
     // Prime is a special case as it is not a one-liner test.
-    Python.definitions_['import_math'] = 'importe math';
+    Python.definitions_['import_math'] = 'import math';
     Python.definitions_['from_numbers_import_Number'] =
-        'de numbers importe Number';
+        'from numbers import Number';
     const functionName = Python.provideFunction_('math_isPrime', `
 def ${Python.FUNCTION_NAME_PLACEHOLDER_}(n):
   # https://en.wikipedia.org/wiki/Primality_test#Naive_methods
@@ -201,7 +201,7 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(n):
         Python.ORDER_MULTIPLICATIVE) || '0';
     // If 'divisor' is some code that evals to 0, Python will raise an error.
     if (divisor === '0') {
-      return ['falso', Python.ORDER_ATOMIC];
+      return ['False', Python.ORDER_ATOMIC];
     }
     code = numberToCheck + ' % ' + divisor + ' == 0';
   } else {
@@ -213,13 +213,13 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(n):
 Python['math_change'] = function(block) {
   // Add to a variable in place.
   Python.definitions_['from_numbers_import_Number'] =
-      'de numbers importe Number';
+      'from numbers import Number';
   const argument0 =
       Python.valueToCode(block, 'DELTA', Python.ORDER_ADDITIVE) || '0';
   const varName =
       Python.nameDB_.getName(block.getFieldValue('VAR'), NameType.VARIABLE);
-  return varName + ' = (' + varName + ' se isinstance(' + varName +
-      ', Number) senao 0) + ' + argument0 + '\n';
+  return varName + ' = (' + varName + ' if isinstance(' + varName +
+      ', Number) else 0) + ' + argument0 + '\n';
 };
 
 // Rounding functions have a single operand.
@@ -244,7 +244,7 @@ Python['math_on_list'] = function(block) {
       break;
     case 'AVERAGE': {
       Python.definitions_['from_numbers_import_Number'] =
-          'de numbers importe Number';
+          'from numbers import Number';
       // This operation excludes null and values that aren't int or float:
       // math_mean([null, null, "aString", 1, 9]) -> 5.0
       const functionName = Python.provideFunction_('math_mean', `
@@ -258,7 +258,7 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(myList):
     }
     case 'MEDIAN': {
       Python.definitions_['from_numbers_import_Number'] =
-          'de numbers importe Number';
+          'from numbers import Number';
       // This operation excludes null values:
       // math_median([null, null, 1, 3]) -> 2.0
       const functionName = Python.provideFunction_( 'math_median', `
@@ -302,7 +302,7 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(some_list):
       break;
     }
     case 'STD_DEV': {
-      Python.definitions_['import_math'] = 'importe math';
+      Python.definitions_['import_math'] = 'import math';
       const functionName = Python.provideFunction_('math_standard_deviation', `
 def ${Python.FUNCTION_NAME_PLACEHOLDER_}(numbers):
   n = len(numbers)
@@ -315,7 +315,7 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(numbers):
       break;
     }
     case 'RANDOM':
-      Python.definitions_['import_random'] = 'importe random';
+      Python.definitions_['import_random'] = 'import random';
       code = 'random.choice(' + list + ')';
       break;
     default:
@@ -340,7 +340,7 @@ Python['math_constrain'] = function(block) {
       Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '0';
   const argument1 = Python.valueToCode(block, 'LOW', Python.ORDER_NONE) || '0';
   const argument2 =
-      Python.valueToCode(block, 'HIGH', Python.ORDER_NONE) || 'real(\'inf\')';
+      Python.valueToCode(block, 'HIGH', Python.ORDER_NONE) || 'float(\'inf\')';
   const code =
       'min(max(' + argument0 + ', ' + argument1 + '), ' + argument2 + ')';
   return [code, Python.ORDER_FUNCTION_CALL];
@@ -348,7 +348,7 @@ Python['math_constrain'] = function(block) {
 
 Python['math_random_int'] = function(block) {
   // Random integer between [X] and [Y].
-  Python.definitions_['import_random'] = 'importe random';
+  Python.definitions_['import_random'] = 'import random';
   const argument0 = Python.valueToCode(block, 'FROM', Python.ORDER_NONE) || '0';
   const argument1 = Python.valueToCode(block, 'TO', Python.ORDER_NONE) || '0';
   const code = 'random.randint(' + argument0 + ', ' + argument1 + ')';
@@ -357,7 +357,7 @@ Python['math_random_int'] = function(block) {
 
 Python['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
-  Python.definitions_['import_random'] = 'importe random';
+  Python.definitions_['import_random'] = 'import random';
   return ['random.random()', Python.ORDER_FUNCTION_CALL];
 };
 
@@ -371,4 +371,3 @@ Python['math_atan2'] = function(block) {
     Python.ORDER_MULTIPLICATIVE
   ];
 };
-// Ok

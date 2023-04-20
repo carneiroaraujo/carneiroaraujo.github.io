@@ -26,7 +26,7 @@ Python['lists_create_with'] = function(block) {
   const elements = new Array(block.itemCount_);
   for (let i = 0; i < block.itemCount_; i++) {
     elements[i] =
-        Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || 'nulo';
+        Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || 'None';
   }
   const code = '[' + elements.join(', ') + ']';
   return [code, Python.ORDER_ATOMIC];
@@ -34,7 +34,7 @@ Python['lists_create_with'] = function(block) {
 
 Python['lists_repeat'] = function(block) {
   // Create a list with one element repeated.
-  const item = Python.valueToCode(block, 'ITEM', Python.ORDER_NONE) || 'nulo';
+  const item = Python.valueToCode(block, 'ITEM', Python.ORDER_NONE) || 'None';
   const times =
       Python.valueToCode(block, 'NUM', Python.ORDER_MULTIPLICATIVE) || '0';
   const code = '[' + item + '] * ' + times;
@@ -44,13 +44,13 @@ Python['lists_repeat'] = function(block) {
 Python['lists_length'] = function(block) {
   // String or array length.
   const list = Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '[]';
-  return ['comprimento(' + list + ')', Python.ORDER_FUNCTION_CALL];
+  return ['len(' + list + ')', Python.ORDER_FUNCTION_CALL];
 };
 
 Python['lists_isEmpty'] = function(block) {
   // Is the string null or array empty?
   const list = Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '[]';
-  const code = 'comprimento(' + list + ') == 0';
+  const code = 'not len(' + list + ')';
   return [code, Python.ORDER_LOGICAL_NOT];
 };
 
@@ -224,10 +224,10 @@ Python['lists_setIndex'] = function(block) {
       break;
     }
     case 'RANDOM': {
-      Python.definitions_['import_random'] = 'importe random';
+      Python.definitions_['import_random'] = 'import random';
       let code = cacheList();
       const xVar = Python.nameDB_.getDistinctName('tmp_x', NameType.VARIABLE);
-      code += xVar + ' = inteiro(random.random() * comprimento(' + list + '))\n';
+      code += xVar + ' = int(random.random() * len(' + list + '))\n';
       if (mode === 'SET') {
         code += list + '[' + xVar + '] = ' + value + '\n';
         return code;
@@ -294,7 +294,7 @@ Python['lists_sort'] = function(block) {
   // Block for sorting a list.
   const list = (Python.valueToCode(block, 'LIST', Python.ORDER_NONE) || '[]');
   const type = block.getFieldValue('TYPE');
-  const reverse = block.getFieldValue('DIRECTION') === '1' ? 'falso' : 'verdadeiro';
+  const reverse = block.getFieldValue('DIRECTION') === '1' ? 'False' : 'True';
   const sortFunctionName = Python.provideFunction_('lists_sort', `
 def ${Python.FUNCTION_NAME_PLACEHOLDER_}(my_list, type, reverse):
   def try_float(s):
@@ -341,7 +341,6 @@ Python['lists_split'] = function(block) {
 Python['lists_reverse'] = function(block) {
   // Block for reversing a list.
   const list = Python.valueToCode(block, 'LIST', Python.ORDER_NONE) || '[]';
-  const code = 'lista(reversed(' + list + '))';
+  const code = 'list(reversed(' + list + '))';
   return [code, Python.ORDER_FUNCTION_CALL];
 };
-// Ok

@@ -30,9 +30,9 @@ import { WorkspaceSvg } from './workspace_svg.js';
 import * as utilsXml from './utils/xml.js';
 import * as Xml from './xml.js';
 var FlyoutItemType;
-(function (FlyoutItemType) {
-    FlyoutItemType["BLOCK"] = "block";
-    FlyoutItemType["BUTTON"] = "button";
+(function (FlyoutItemType) {  // Converted by tsick.
+    FlyoutItemType.BLOCK = "block";
+    FlyoutItemType.BUTTON = "button";
 })(FlyoutItemType || (FlyoutItemType = {}));
 /**
  * Class for a flyout.

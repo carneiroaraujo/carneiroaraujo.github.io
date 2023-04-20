@@ -79,12 +79,12 @@ Python['text_append'] = function (block) {
 Python['text_length'] = function (block) {
     // Is the string null or array empty?
     const text = Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || "''";
-    return ['comprimento(' + text + ')', Python.ORDER_FUNCTION_CALL];
+    return ['len(' + text + ')', Python.ORDER_FUNCTION_CALL];
 };
 Python['text_isEmpty'] = function (block) {
     // Is the string null or array empty?
     const text = Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || "''";
-    const code = 'not comprimento(' + text + ')';
+    const code = 'not len(' + text + ')';
     return [code, Python.ORDER_LOGICAL_NOT];
 };
 Python['text_indexOf'] = function (block) {
@@ -125,10 +125,10 @@ Python['text_charAt'] = function (block) {
             return [code, Python.ORDER_MEMBER];
         }
         case 'RANDOM': {
-            Python.definitions_['import_random'] = 'importe random';
+            Python.definitions_['import_random'] = 'import random';
             const functionName = Python.provideFunction_('text_random_letter', `
 def ${Python.FUNCTION_NAME_PLACEHOLDER_}(text):
-  x = inteiro(random.random() * comprimento(text))
+  x = int(random.random() * len(text))
   return text[x]
 `);
             const code = functionName + '(' + text + ')';
@@ -169,7 +169,7 @@ Python['text_getSubstring'] = function (block) {
             // Ensure that if the result calculated is 0 that sub-sequence will
             // include all elements as expected.
             if (!stringUtils.isNumber(String(at2))) {
-                Python.definitions_['import_sys'] = 'importe sys';
+                Python.definitions_['import_sys'] = 'import sys';
                 at2 += ' or sys.maxsize';
             }
             else if (at2 === 0) {
@@ -212,17 +212,17 @@ Python['text_trim'] = function (block) {
 Python['text_print'] = function (block) {
     // Print statement.
     const msg = Python.valueToCode(block, 'TEXT', Python.ORDER_NONE) || "''";
-    return 'escreva(' + msg + ')\n';
+    return 'print(' + msg + ')\n';
 };
 Python['text_prompt_ext'] = function (block) {
     // Prompt function.
-    //   const functionName = Python.provideFunction_('text_prompt', `
-    // def ${Python.FUNCTION_NAME_PLACEHOLDER_}(msg):
-    //   try:
-    //     return raw_input(msg)
-    //   except NameError:
-    //     return input(msg)
-    // `);
+    const functionName = Python.provideFunction_('text_prompt', `
+def ${Python.FUNCTION_NAME_PLACEHOLDER_}(msg):
+  try:
+    return raw_input(msg)
+  except NameError:
+    return input(msg)
+`);
     let msg;
     if (block.getField('TEXT')) {
         // Internal message.
@@ -232,10 +232,10 @@ Python['text_prompt_ext'] = function (block) {
         // External message.
         msg = Python.valueToCode(block, 'TEXT', Python.ORDER_NONE) || "''";
     }
-    let code = 'leia(' + msg + ')';
+    let code = functionName + '(' + msg + ')';
     const toNumber = block.getFieldValue('TYPE') === 'NUMBER';
     if (toNumber) {
-        code = 'real(' + code + ')';
+        code = 'float(' + code + ')';
     }
     return [code, Python.ORDER_FUNCTION_CALL];
 };
@@ -255,8 +255,7 @@ Python['text_replace'] = function (block) {
 };
 Python['text_reverse'] = function (block) {
     const text = Python.valueToCode(block, 'TEXT', Python.ORDER_MEMBER) || "''";
-    const code = 'string(reversed(' + text + '))';
-    //const code = text + '[::-1]';
+    const code = text + '[::-1]';
     return [code, Python.ORDER_MEMBER];
 };
 //# sourceMappingURL=text.js.map

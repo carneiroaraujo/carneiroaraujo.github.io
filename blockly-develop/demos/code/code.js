@@ -96,7 +96,9 @@ Code.getLang = function() {
   var lang = Code.getStringParamFromUrl('lang', '');
   if (Code.LANGUAGE_NAME[lang] === undefined) {
     // Default to English.
-    lang = 'en';
+    // lang = 'en';
+    /// Default to Portuguese now B)
+    lang = 'pt-br'
   }
   return lang;
 };
@@ -240,7 +242,7 @@ Code.LANG = Code.getLang();
  * @private
  */
 Code.TABS_ = [
-  'blocks', 'javascript', 'php', 'python', 'dart', 'lua', 'xml', 'json'
+  'blocks', 'javascript', 'php', 'python', 'pygol', 'dart', 'lua', 'xml', 'json'
 ];
 
 /**
@@ -248,7 +250,7 @@ Code.TABS_ = [
  * @private
  */
 Code.TABS_DISPLAY_ = [
-  'Blocks', 'JavaScript', 'PHP', 'Python', 'Dart', 'Lua', 'XML', 'JSON'
+  'Blocks', 'JavaScript', 'PHP', 'Python', 'Pygol', 'Dart', 'Lua', 'XML', 'JSON'
 ];
 
 Code.selected = 'blocks';
@@ -359,6 +361,8 @@ Code.renderContent = function() {
     Code.attemptCodeGeneration(Blockly.JavaScript);
   } else if (content.id === 'content_python') {
     Code.attemptCodeGeneration(Blockly.Python);
+  } else if (content.id === 'content_pygol') {
+    Code.attemptCodeGeneration(Blockly.Pygol);
   } else if (content.id === 'content_php') {
     Code.attemptCodeGeneration(Blockly.PHP);
   } else if (content.id === 'content_dart') {

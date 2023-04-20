@@ -26,12 +26,12 @@ Python['controls_repeat_ext'] = function (block) {
         repeats = parseInt(repeats, 10);
     }
     else {
-        repeats = 'inteiro(' + repeats + ')';
+        repeats = 'int(' + repeats + ')';
     }
     let branch = Python.statementToCode(block, 'DO');
     branch = Python.addLoopTrap(branch, block) || Python.PASS;
     const loopVar = Python.nameDB_.getDistinctName('count', NameType.VARIABLE);
-    const code = 'para ' + loopVar + ' em intervalo(' + repeats + '):\n' + branch;
+    const code = 'for ' + loopVar + ' in range(' + repeats + '):\n' + branch;
     return code;
 };
 Python['controls_repeat'] = Python['controls_repeat_ext'];
@@ -39,13 +39,13 @@ Python['controls_whileUntil'] = function (block) {
     // Do while/until loop.
     const until = block.getFieldValue('MODE') === 'UNTIL';
     let argument0 = Python.valueToCode(block, 'BOOL', until ? Python.ORDER_LOGICAL_NOT : Python.ORDER_NONE) ||
-        'falso';
+        'False';
     let branch = Python.statementToCode(block, 'DO');
     branch = Python.addLoopTrap(branch, block) || Python.PASS;
     if (until) {
         argument0 = 'not ' + argument0;
     }
-    return 'enquanto ' + argument0 + ':\n' + branch;
+    return 'while ' + argument0 + ':\n' + branch;
 };
 Python['controls_for'] = function (block) {
     // For loop.
@@ -76,8 +76,8 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(start, stop, step):
     };
     // Arguments are legal Python code (numbers or strings returned by scrub()).
     const generateUpDownRange = function (start, end, inc) {
-        return '(' + start + ' <= ' + end + ') e ' + defineUpRange() + '(' +
-            start + ', ' + end + ', ' + inc + ') ou ' + defineDownRange() + '(' +
+        return '(' + start + ' <= ' + end + ') and ' + defineUpRange() + '(' +
+            start + ', ' + end + ', ' + inc + ') or ' + defineDownRange() + '(' +
             start + ', ' + end + ', ' + inc + ')';
     };
     if (stringUtils.isNumber(argument0) && stringUtils.isNumber(argument1) &&
@@ -108,7 +108,7 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(start, stop, step):
                 argument1--;
                 range = argument0 + ', ' + argument1 + ', -' + increment;
             }
-            range = 'intervalo(' + range + ')';
+            range = 'range(' + range + ')';
         }
         else {
             // At least one of the parameters is not an integer.
@@ -153,7 +153,7 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(start, stop, step):
             range = generateUpDownRange(startVar, endVar, incVar);
         }
     }
-    code += 'para ' + variable0 + ' em ' + range + ':\n' + branch;
+    code += 'for ' + variable0 + ' in ' + range + ':\n' + branch;
     return code;
 };
 Python['controls_forEach'] = function (block) {
@@ -162,7 +162,7 @@ Python['controls_forEach'] = function (block) {
     const argument0 = Python.valueToCode(block, 'LIST', Python.ORDER_RELATIONAL) || '[]';
     let branch = Python.statementToCode(block, 'DO');
     branch = Python.addLoopTrap(branch, block) || Python.PASS;
-    const code = 'para ' + variable0 + ' em ' + argument0 + ':\n' + branch;
+    const code = 'for ' + variable0 + ' in ' + argument0 + ':\n' + branch;
     return code;
 };
 Python['controls_flow_statements'] = function (block) {
@@ -188,7 +188,7 @@ Python['controls_flow_statements'] = function (block) {
     }
     switch (block.getFieldValue('FLOW')) {
         case 'BREAK':
-            return xfix + 'pare\n';
+            return xfix + 'break\n';
         case 'CONTINUE':
             return xfix + 'continue\n';
     }

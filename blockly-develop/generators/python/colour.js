@@ -22,7 +22,7 @@ Python['colour_picker'] = function(block) {
 
 Python['colour_random'] = function(block) {
   // Generate a random colour.
-  Python.definitions_['import_random'] = 'importe random';
+  Python.definitions_['import_random'] = 'import random';
   const code = '\'#%06x\' % random.randint(0, 2**24 - 1)';
   return [code, Python.ORDER_FUNCTION_CALL];
 };
@@ -47,9 +47,9 @@ Python['colour_blend'] = function(block) {
   // Blend two colours together.
   const functionName = Python.provideFunction_('colour_blend', `
 def ${Python.FUNCTION_NAME_PLACEHOLDER_}(colour1, colour2, ratio):
-  r1, r2 = inteiro(colour1[1:3], 16), inteiro(colour2[1:3], 16)
-  g1, g2 = inteiro(colour1[3:5], 16), inteiro(colour2[3:5], 16)
-  b1, b2 = inteiro(colour1[5:7], 16), inteiro(colour2[5:7], 16)
+  r1, r2 = int(colour1[1:3], 16), int(colour2[1:3], 16)
+  g1, g2 = int(colour1[3:5], 16), int(colour2[3:5], 16)
+  b1, b2 = int(colour1[5:7], 16), int(colour2[5:7], 16)
   ratio = min(1, max(0, ratio))
   r = round(r1 * (1 - ratio) + r2 * ratio)
   g = round(g1 * (1 - ratio) + g2 * ratio)
@@ -65,4 +65,3 @@ def ${Python.FUNCTION_NAME_PLACEHOLDER_}(colour1, colour2, ratio):
       functionName + '(' + colour1 + ', ' + colour2 + ', ' + ratio + ')';
   return [code, Python.ORDER_FUNCTION_CALL];
 };
-// Ok

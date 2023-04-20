@@ -15,14 +15,14 @@ import { KeyCodes } from './utils/keycodes.js';
  * Object holding the names of the default shortcut items.
  */
 export var names;
-(function (names) {
-    names["ESCAPE"] = "escape";
-    names["DELETE"] = "delete";
-    names["COPY"] = "copy";
-    names["CUT"] = "cut";
-    names["PASTE"] = "paste";
-    names["UNDO"] = "undo";
-    names["REDO"] = "redo";
+(function (names) {  // Converted by tsick.
+    names.ESCAPE = "escape";
+    names.DELETE = "delete";
+    names.COPY = "copy";
+    names.CUT = "cut";
+    names.PASTE = "paste";
+    names.UNDO = "undo";
+    names.REDO = "redo";
 })(names || (names = {}));
 /**
  * Keyboard shortcut to hide chaff on escape.

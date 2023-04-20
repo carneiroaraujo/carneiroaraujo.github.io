@@ -124,6 +124,13 @@ const chunks = [
     reexportOnly: 'pythonGenerator',
   },
   {
+    name: 'pygol',
+    entry: path.join(TSC_OUTPUT_DIR, 'generators', 'pygol', 'all.js'),
+    exports: 'module$exports$Blockly$Pygol',
+    reexport: 'Blockly.Pygol',
+    reexportOnly: 'pygolGenerator',
+  },
+  {
     name: 'php',
     entry: path.join(TSC_OUTPUT_DIR, 'generators', 'php', 'all.js'),
     exports: 'module$exports$Blockly$PHP',
