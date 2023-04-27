@@ -66,10 +66,13 @@ h1 {
 }
 
 /* Tabs */
-#tabRow>td {
+/* #tabRow>td {
   border: 1px solid #ccc;
   border-bottom: none;
-}
+  border-top: none;
+  border: none;
+  
+} */
 td.tabon {
   border-bottom-color: #ddd !important;
   background-color: #ddd;
@@ -79,6 +82,7 @@ td.tabon {
 td.taboff {
   cursor: pointer;
   padding: 5px 19px;
+  border-radius: 4px;
 }
 td.taboff:hover {
   background-color: #eee;
@@ -158,12 +162,21 @@ button {
   background-image: url(icons.png);
 }
 .trash {
-  background-position: 0px 0px;
+  background-position: -84px 0px;
 }
 .link {
   background-position: -21px 0px;
 }
 .run {
+  background-position: 0px 0px;
+}
+.copy {
+  background-position: -21px 0px;
+}
+.load {
+  background-position: -63px 0px;
+}
+.save {
   background-position: -42px 0px;
 }
 
@@ -182,3 +195,39 @@ button {
   font-size: small;
   text-decoration: none;
 }
+#notification-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 28px;
+  padding: 20px 24px;
+  border-radius: 4px;
+  background-color: #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform: translateX(100%);
+  opacity: 0;
+  border: 1px solid #ddd;
+  color: #000;
+}
+
+.toast.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast .close-btn {
+  margin-left: 10px;
+  color: #999;
+  cursor: pointer;
+}
+

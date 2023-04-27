@@ -15,7 +15,7 @@
   <script src="../../dist/php_compressed.js"></script>
   <script src="../../dist/lua_compressed.js"></script>
   <script src="../../dist/dart_compressed.js"></script>
-  
+  <script src="notification.js"></script>
   <script src="code.js"></script>
 </head>
 <body>
@@ -29,7 +29,7 @@
       </td>
       <td class="farSide">
         <select id="languageMenu"></select>
-        <a class="privacyLink" href="https://policies.google.com/privacy">Privacy</a>
+        <!-- <a class="privacyLink" href="https://policies.google.com/privacy">Privacy</a> -->
       </td>
     </tr>
     <tr>
@@ -58,15 +58,30 @@
               <select id="code_menu"></select>
             </td>
             <td class="tabmax">
+              
+              <button id="runButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="run icon21">
+              </button>
+              <button id="copyButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="copy icon21">
+              </button>
+
+              <button id="saveButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="save icon21">
+              </button>
+
+              <button id="loadButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="load icon21">
+              </button>
               <button id="trashButton" class="notext" title="...">
                 <img src='../../media/1x1.gif' class="trash icon21">
               </button>
+             
               <button id="linkButton" class="notext" title="...">
                 <img src='../../media/1x1.gif' class="link icon21">
               </button>
-              <button id="runButton" class="notext primary" title="...">
-                <img src='../../media/1x1.gif' class="run icon21">
-              </button>
+              
+              
             </td>
           </tr>
         </table>
@@ -397,6 +412,8 @@
     <category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
     <category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
   </xml>
+  <div id="notification-container"></div>
+</div>
 
 </body>
 </html>

@@ -254,7 +254,7 @@ Code.TABS_DISPLAY_ = [
 ];
 
 Code.selected = 'blocks';
-
+Code.notifications = [];
 /**
  * Switch the visible pane when a tab is clicked.
  * @param {string} clickedName Name of tab clicked.
@@ -282,6 +282,7 @@ Code.tabClick = function(clickedName) {
   }
 
   if (document.getElementById('tab_json').classList.contains('tabon')) {
+    
     var jsonTextarea = document.getElementById('content_json');
     var jsonText = jsonTextarea.value;
     var json = null;
@@ -388,6 +389,7 @@ Code.attemptCodeGeneration = function(generator) {
     // Remove the 'prettyprinted' class, so that Prettify will recalculate.
     content.className = content.className.replace('prettyprinted', '');
   }
+  
 };
 
 /**
@@ -494,7 +496,56 @@ Code.init = function() {
 
   Code.bindClick('trashButton',
       function() {Code.discard(); Code.renderContent();});
+  Code.bindClick('copyButton', function() {
+      if (Code.selected == 'blocks') {
+        alert(MSG['copyError'])
+      } else {
+        var content = document.getElementById('content_' + Code.selected);
+        navigator.clipboard.writeText(content.textContent)
+      } 
+  })
   Code.bindClick('runButton', Code.runJS);
+  Code.bindClick('loadButton', function() {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = e => { 
+      var reader = new FileReader();
+      reader.readAsText(e.target.files[0],'UTF-8');
+      reader.onload = event => {
+          var jsonText = event.target.result;
+          var json = null;
+          try {
+            json = JSON.parse(jsonText);
+          } catch (e) {
+            alert(MSG['parseError'].replace(/%1/g, 'JSON').replace('%2', e));
+            return;
+          }
+          Blockly.serialization.workspaces.load(json, Code.workspace);   
+      }
+    }
+    input.click();
+  
+  })
+  Code.bindClick('saveButton', function() {
+    var a = document.createElement("a");
+    var content = JSON.stringify(Blockly.serialization.workspaces.save(Code.workspace), null, 2);
+    var file = new Blob([content], {type: 'text/plain'});
+    a.href = URL.createObjectURL(file);
+    var name = prompt(MSG['saveTooltipMsg']);
+    if (name == null || name == "") {
+      createNotification("Opah")
+      // const toast = document.getElementById('toast');
+      // toast.querySelector('.toast-body').innerHTML = "Vc deve inserir um nome para seu arquivo";
+      // toast.classList.add('visible');
+      // setTimeout(function(){toast.classList.remove('visible');}, 5000);
+      
+    } else {
+      a.download = name + '.blockly';
+      a.click();
+    }
+    
+    
+  })
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
   if ('BlocklyStorage' in window) {
@@ -579,6 +630,10 @@ Code.initLanguage = function() {
   document.getElementById('linkButton').title = MSG['linkTooltip'];
   document.getElementById('runButton').title = MSG['runTooltip'];
   document.getElementById('trashButton').title = MSG['trashTooltip'];
+
+  document.getElementById('copyButton').title = MSG['copyTooltip'];
+  document.getElementById('loadButton').title = MSG['loadTooltip'];
+  document.getElementById('saveButton').title = MSG['saveTooltip'];
 };
 
 /**
@@ -621,6 +676,39 @@ Code.discard = function() {
     }
   }
 };
+// Code.createNotification = function(message) {
+//   let id = notifications.length + 1;
+
+//   // create the notification element
+//   let notification = document.createElement("div");
+//   notification.classList.add("toast");
+//   notification.setAttribute("id", "toast" + id);
+
+//   // create the notification body element
+//   let body = document.createElement("div");
+//   body.classList.add("toast-body");
+//   body.innerText = message;
+//   notification.appendChild(body);
+
+//   // add the notification to the container
+//   let container = document.getElementById("notification-container");
+//   container.appendChild(notification);
+
+//   // show the notification
+//   notification.classList.add("visible");
+
+//   // hide the notification after 5 seconds
+//   setTimeout(() => {
+//     notification.classList.remove("visible");
+//     setTimeout(() => {
+//       container.removeChild(notification);
+//       notifications.splice(notifications.indexOf(notification), 1);
+//     }, 500);
+//   }, 5000);
+
+//   // add the notification to the array
+//   notifications.push(notification);
+// }
 
 // Load the Code demo's language strings.
 document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');

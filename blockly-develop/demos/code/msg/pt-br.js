@@ -20,5 +20,11 @@ var MSG = {
   linkAlert: "Compartilhe seus blocos com este link:\n\n%1",
   hashError: "Desculpe, '%1' não corresponde a um programa salvo.",
   loadError: "Não foi possível carregar seu arquivo salvo. Talvez ele tenha sido criado com uma versão diferente do Blockly?",
-  parseError: "Erro de análise %1:\n%2\n\nSelecione 'OK' para abandonar suas mudanças ou 'Cancelar' para editar o %1."
+  parseError: "Erro de análise %1:\n%2\n\nSelecione 'OK' para abandonar suas mudanças ou 'Cancelar' para editar o %1.",
+
+  copyTooltip: "Copiar o código exibido.",
+  copyError: "Selecione uma linguagem para então copiar o código",
+  saveTooltip: "Salvar seu progresso em um arquivo.",
+  loadTooltip: "Carregar seu progresso de um arquivo.",
+  saveTooltipMsg: "Digite o nome do arquivo em que salvará seu progresso"
 };
