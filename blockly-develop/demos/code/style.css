@@ -27,9 +27,9 @@ button {
   background-color: #eee;
   color: #000;
 }
-button.primary {
-  border: 1px solid #dd4b39;
-  background-color: #dd4b39;
+button#runButton:active {
+  border: 1px solid #60a48c;
+  background-color: #60a48c;
   color: #fff;
 }
 button.primary>img {
@@ -66,13 +66,7 @@ h1 {
 }
 
 /* Tabs */
-/* #tabRow>td {
-  border: 1px solid #ccc;
-  border-bottom: none;
-  border-top: none;
-  border: none;
-  
-} */
+
 td.tabon {
   border-bottom-color: #ddd !important;
   background-color: #ddd;

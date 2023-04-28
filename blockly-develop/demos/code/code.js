@@ -494,14 +494,19 @@ Code.init = function() {
 
   Code.tabClick(Code.selected);
 
-  Code.bindClick('trashButton',
-      function() {Code.discard(); Code.renderContent();});
+  Code.bindClick('trashButton', function() {
+    Code.discard(); 
+    Code.renderContent();
+    createNotification(MSG['blocksDiscarded'])
+  });
+
   Code.bindClick('copyButton', function() {
       if (Code.selected == 'blocks') {
-        alert(MSG['copyError'])
+        createNotification(MSG['copyError'])
       } else {
         var content = document.getElementById('content_' + Code.selected);
         navigator.clipboard.writeText(content.textContent)
+        createNotification(MSG['codeCopied'])
       } 
   })
   Code.bindClick('runButton', Code.runJS);
@@ -521,9 +526,11 @@ Code.init = function() {
             return;
           }
           Blockly.serialization.workspaces.load(json, Code.workspace);   
+          createNotification(MSG["loadSucess"])
       }
     }
     input.click();
+
   
   })
   Code.bindClick('saveButton', function() {
@@ -531,17 +538,13 @@ Code.init = function() {
     var content = JSON.stringify(Blockly.serialization.workspaces.save(Code.workspace), null, 2);
     var file = new Blob([content], {type: 'text/plain'});
     a.href = URL.createObjectURL(file);
-    var name = prompt(MSG['saveTooltipMsg']);
+    var name = prompt(MSG['saveMsg']);
     if (name == null || name == "") {
-      createNotification("Opah")
-      // const toast = document.getElementById('toast');
-      // toast.querySelector('.toast-body').innerHTML = "Vc deve inserir um nome para seu arquivo";
-      // toast.classList.add('visible');
-      // setTimeout(function(){toast.classList.remove('visible');}, 5000);
-      
+      createNotification(MSG["invalidFileName"])
     } else {
       a.download = name + '.blockly';
-      a.click();
+      a.click(); 
+      createNotification(MSG["saveSucess"])
     }
     
     

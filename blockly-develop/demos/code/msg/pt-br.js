@@ -22,9 +22,14 @@ var MSG = {
   loadError: "Não foi possível carregar seu arquivo salvo. Talvez ele tenha sido criado com uma versão diferente do Blockly?",
   parseError: "Erro de análise %1:\n%2\n\nSelecione 'OK' para abandonar suas mudanças ou 'Cancelar' para editar o %1.",
 
-  copyTooltip: "Copiar o código exibido.",
-  copyError: "Selecione uma linguagem para então copiar o código",
+  copyTooltip: "Copiar o código exibido para a área de transferência.",
+  copyError: "Selecione uma linguagem para então copiar o código.",
   saveTooltip: "Salvar seu progresso em um arquivo.",
   loadTooltip: "Carregar seu progresso de um arquivo.",
-  saveTooltipMsg: "Digite o nome do arquivo em que salvará seu progresso"
+  saveMsg: "Digite o nome do arquivo em que salvará seu progresso.",
+  invalidFileName: "O nome do arquivo é inválido.",
+  saveSucess: "Arquivo salvo.",
+  loadSucess: "Arquivo carregado.",
+  codeCopied: "Código copiado para a área de transferência.",
+  blocksDiscarded: "Os blocos foram descartados.",
 };
